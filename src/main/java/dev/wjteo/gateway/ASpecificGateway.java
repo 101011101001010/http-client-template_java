@@ -33,36 +33,42 @@ public abstract class ASpecificGateway<E extends AEntity> extends AGateway {
     }
 
     @NonNull
-    protected List<E> getAll(@NonNull final Map<String, String> queryParameters) throws RestException {
+    public List<E> getAll(@NonNull final Map<String, String> queryParameters) throws RestException {
         final HttpUriRequest request = createGetRequest(entityEndpoint, queryParameters);
         return executeWithListResponse(request, entityClass);
     }
 
     @NonNull
-    protected Optional<E> getById(final long id, @NonNull final Map<String, String> queryParameters) throws RestException {
+    public Optional<E> getById(final long id, @NonNull final Map<String, String> queryParameters) throws RestException {
         final HttpUriRequest request = createGetRequest(entityEndpoint + "/" + id, queryParameters);
         return executeWithObjectResponse(request, entityClass);
     }
 
     @NonNull
-    protected List<E> getByIds(@NonNull final List<Long> ids, @NonNull final Map<String, String> queryParameters) throws RestException {
+    public List<E> getByIds(@NonNull final List<Long> ids, @NonNull final Map<String, String> queryParameters) throws RestException {
         final HttpUriRequest request = createPostRequest(entityEndpoint + "/ids", queryParameters, ids);
         return executeWithListResponse(request, entityClass);
     }
 
+    /**
+     * Test
+     * @param entity test
+     * @return test
+     * @throws RestException test12345
+     */
     @NonNull
-    protected Optional<E> create(@NonNull final E entity) throws RestException {
+    public Optional<E> create(@NonNull final E entity) throws RestException {
         final HttpUriRequest request = createPostRequest(entityEndpoint + "/create", new HashMap<>(), entity);
         return executeWithObjectResponse(request, entityClass);
     }
 
     @NonNull
-    protected Optional<E> update(@NonNull final E entity) throws RestException {
+    public Optional<E> update(@NonNull final E entity) throws RestException {
         final HttpUriRequest request = createPostRequest(entityEndpoint + "/update", new HashMap<>(), entity);
         return executeWithObjectResponse(request, entityClass);
     }
 
-    protected boolean delete(final long id) throws RestException {
+    public boolean delete(final long id) throws RestException {
         final HttpUriRequest request = createDeleteRequest(entityEndpoint + "/delete/" + id, new HashMap<>());
         return executeWithObjectResponse(request, entityClass).isPresent();
     }
